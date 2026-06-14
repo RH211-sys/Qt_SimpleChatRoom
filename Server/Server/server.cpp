@@ -21,6 +21,17 @@ Server::Server(QWidget *parent) : QWidget(parent), ui(new Ui::Server) {
     if(ok) {
         writeLog("成功打开数据库");
     }
+    // 创建表
+    QSqlQuery query(chatDB);
+    query.exec("CREATE TABLE IF NOT EXISTS chat_record ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "time CHAR(10), "
+               "sender CHAR(20), "
+               "name CHAR(20), "
+               "msg CHAR(100)"
+               ")");
+
+
     // 绑定Model
     chatTableModel = new QSqlTableModel(this, chatDB);
     chatTableModel->setTable("chat_record");
@@ -166,6 +177,7 @@ void Server::broadCast(QString content) {
     QByteArray msg = content.toUtf8();
     for(auto& cli: client_group.keys()) {
         cli->write(msg);
+        cli->flush();
     }
     writeLog("已完成广播");
 }

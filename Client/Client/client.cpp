@@ -126,7 +126,6 @@ void Client::receiveMsg() {
     msg = QString::fromUtf8(serverTar->readAll());
     QString flag = msg[0];
 
-
     ui->msgInfo->addItem(msg.mid(1));
     // 判断消息类型
     if(flag == SERVER_CLOSE) {   // 服务器关闭

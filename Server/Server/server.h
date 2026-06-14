@@ -17,6 +17,7 @@
 #include <QByteArray>
 #include <QSet>
 #include <QRandomGenerator>
+#include <QSqlQuery>
 
 #define HISTORY_RECORD "0"
 #define CHAT_INFO "1"
